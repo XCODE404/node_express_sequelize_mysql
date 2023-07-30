@@ -4,6 +4,7 @@ exports.STATUS_CODES = {
     UN_AUTHORISED: 403,
     NOT_FOUND: 404,
     INTERNAL_ERROR: 500,
+    VALIDATE_ERROR: 422
 }
 
 exports.RESPONSE_MESSAGE = {
@@ -12,6 +13,7 @@ exports.RESPONSE_MESSAGE = {
     UPDATED: "Successfully Updated",
     RETRIVED: "Successfully Retrived",
     DELETED: "Successfully Deleted",
+    DATA_NOT_FOUND: "Data Not Found",
     NOT_EXIST: "NOT EXIST",
     SIGN_IN: "Successfully Sign In",
     SIGN_UP: "Successfully Sign Un",
