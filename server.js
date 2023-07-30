@@ -1,3 +1,4 @@
+// Import the required modules
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
@@ -28,9 +29,10 @@ app.use(express.urlencoded({ extended: true }));
 // Put public folder to static
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Register the router under a specific base path
+app.use('/api/employee', require('./app/routes/employee.routes'));
 
-
-// set port, listen for requests
-const port = process.env.PORT || 9000;
-app.listen(port, () => console.log(`We are running at port ${ port }`));
+// Start the server
+const PORT = process.env.PORT || 9000;
+app.listen(PORT, () => console.log(`We are running at port ${ PORT }`));
 
