@@ -11,16 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      models.Employee.hasMany(models.MstRole, {
-        foreignKey: 'role_id',
-        as: 'role_id'
-      });
-      models.Employee.belongsTo(models.Customer, {
-        foreignKey: 'employee_id',
-      });
-      models.Employee.belongsTo(models.Customer, {
-        foreignKey: 'employee_id',
-      });
+      
     }
   }
   Employee.init({
@@ -30,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4
     },
-    role_id: {
+    role: {
       allowNull: false,
       type: DataTypes.UUID,
       references: {

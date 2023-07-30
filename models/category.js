@@ -11,14 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      models.Category.hasMany(models.Employee, {
-        foreignKey: 'employee_id',
-        as: 'created_employee'
-      });
-      models.Category.hasMany(models.Employee, {
-        foreignKey: 'employee_id',
-        as: 'updated_employee'
-      });
+     
     }
   }
   Category.init({
