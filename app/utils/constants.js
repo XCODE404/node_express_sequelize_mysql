@@ -1,7 +1,7 @@
-exports.STATUS_CODES = {
+exports.RESPONSE_STATUS_CODE = {
     OK: 200,
     BAD_REQUEST: 400,
-    UN_AUTHORISED: 403,
+    UN_AUTHORIZED: 403,
     NOT_FOUND: 404,
     INTERNAL_ERROR: 500,
     VALIDATE_ERROR: 422
@@ -22,7 +22,7 @@ exports.RESPONSE_MESSAGE = {
     USER_NOT_FOUND: "User Not Found",
     ALREADY_EXIST: "Already Exist",
     VALIDATION_ERROR: "Validation Error",
-    UNAUTHORIZED: "Unauthorized",
+    UN_AUTHORIZED: "Un Authorized",
     FORBIDDEN: "Forbidden",
     NOT_FOUND: "Not Found",
     BAD_REQUEST: "Bad Request",

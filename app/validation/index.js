@@ -1,6 +1,6 @@
 // Import the required modules
-const { STATUS_CODES } = require("../utils/constants");
-const { APIError } = require("../utils/error-handler")
+const { RESPONSE_STATUS_CODE } = require("../utils/constants");
+const { ResponseError } = require("../utils/error-handler")
 
 // Validate with req data
 exports.validateBody = (schema) => {
@@ -11,12 +11,12 @@ exports.validateBody = (schema) => {
             if (result.error) {
                 const error_message = result.error.details[0].message.split('"').join("");
                 const error = new Error(error_message);
-                next(error.status = STATUS_CODES.VALIDATE_ERROR);
+                next(error.status = RESPONSE_STATUS_CODE.VALIDATE_ERROR);
             } else {
                 next();
             }
         }
     } catch (error) {
-        APIError(error);
+        throw new ResponseError(error);
     }
 }

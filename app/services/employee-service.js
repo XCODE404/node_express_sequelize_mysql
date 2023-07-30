@@ -7,8 +7,9 @@ class EmployeeService {
 
     }
 
-    static async getEmployee() {
-
+    static async getEmployee(req) {
+        const employee = await EmployeeRepository.getEmployee(req);
+        return FormatData(employee);
     }
 
     static async selectedEmployee(emplyee_id) {
