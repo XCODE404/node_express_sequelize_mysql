@@ -5,6 +5,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const useragent = require('express-useragent');
+const errors = require('./app/utils/errors');
 
 require('dotenv').config({
     path: path.resolve(__dirname, `.env.${ process.env.NODE_ENV }`),
@@ -31,6 +32,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Register the router under a specific base path
 app.use('/api/employee', require('./app/routes/employee.routes'));
+
+// catch all errors and format and report
+errors(app);
 
 // Start the server
 const PORT = process.env.PORT || 9000;

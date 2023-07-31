@@ -1,6 +1,6 @@
 // Import the required modules
 const { RESPONSE_STATUS_CODE } = require("../utils/constants");
-const { ResponseError } = require("../utils/error-handler")
+
 
 // Validate with req data
 exports.validateBody = (schema) => {

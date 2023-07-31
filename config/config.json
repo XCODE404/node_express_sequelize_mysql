@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "root",
-    "password": "root",
-    "database": "futsal_conyat_db",
+    "password": "password@2022",
+    "database": "node_express_sequelize_mysql",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "pool": {
@@ -15,7 +15,7 @@
   "test": {
     "username": "root",
     "password": "password@2022",
-    "database": "futsal_conyat_db",
+    "database": "node_express_sequelize_mysql",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "pool": {
@@ -28,7 +28,7 @@
   "production": {
     "username": "root",
     "password": "password@2022",
-    "database": "futsal_conyat_db",
+    "database": "node_express_sequelize_mysql",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "pool": {

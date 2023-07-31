@@ -1,8 +1,7 @@
 // Import the required modules
 const EmployeeService = require("../services/employee-service");
-const { Response, ThrowError } = require("../utils");
+const { Response } = require("../utils");
 const { RESPONSE_MESSAGE, RESPONSE_STATUS_CODE } = require("../utils/constants");
-const { ResponseError } = require("../utils/error-handler");
 
 // Define the EmployeeController class
 class EmployeeController {
@@ -11,7 +10,7 @@ class EmployeeController {
             const result = await EmployeeService.createEmployee(req);
             Response(res, { message: RESPONSE_MESSAGE.CREATED, status: RESPONSE_STATUS_CODE.CREATED, data: result });
         } catch (error) {
-            ThrowError(res, { message: error.message });
+            next(error);
         }
     }
 
@@ -20,16 +19,16 @@ class EmployeeController {
             const result = await EmployeeService.getEmployee(req);
             Response(res, { message: RESPONSE_MESSAGE.RETRIVED, status: RESPONSE_STATUS_CODE.OK, data: result });
         } catch (error) {
-            // throw ResponseError(error);
-            ThrowError(res, { message: error.message });
+            next(error);
         }
     }
 
     static async selectedEmployee(req, res, next) {
         try {
-            
+            const result = await EmployeeService.selectedEmployee(req);
+            Response(res, { message: RESPONSE_MESSAGE.RETRIVED, status: RESPONSE_STATUS_CODE.OK, data: result });
         } catch (error) {
-            ThrowError(res, { message: error.message });
+            next(error);
         }
     }
 
@@ -37,7 +36,7 @@ class EmployeeController {
         try {
             
         } catch (error) {
-            ThrowError(res, { message: error.message });
+            next(error);
         }
     }
 
@@ -45,7 +44,7 @@ class EmployeeController {
         try {
             
         } catch (error) {
-            ThrowError(res, { message: error.message });
+            next(error);
         }
     }
 }

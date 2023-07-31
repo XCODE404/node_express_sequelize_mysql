@@ -26,7 +26,7 @@ exports.RESPONSE_MESSAGE = {
     FORBIDDEN: "Forbidden",
     NOT_FOUND: "Not Found",
     BAD_REQUEST: "Bad Request",
-    SERVER_ERROR: "Internal Server Error",
+    INTERNAL_ERROR: "Internal Server Error",
 }
 
 exports.DEFINE = {

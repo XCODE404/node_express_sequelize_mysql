@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const moment = require("moment/moment");
 const { RESPONSE_MESSAGE, RESPONSE_STATUS_CODE } = require("./constants");
+const { ThrowError } = require("./errors/app-errors");
 
 module.exports.UserAgent = async (agent) => {
     return {
@@ -26,13 +27,6 @@ module.exports.Response = (res, {
     });
 };
 
-module.exports.ThrowError = (res, { 
-    message = RESPONSE_MESSAGE.SERVER_ERROR,
-    status = RESPONSE_STATUS_CODE.INTERNAL_ERROR } = {}
-    ) => {
-    res.status(status).json({ message: message });
-};
-
 module.exports.TodayDate = async () => moment().format('YYYY-MM-DD');
 
 module.exports.FormatData = (data) => {
@@ -54,9 +48,15 @@ module.exports.ValidateSignature = async (req) => {
     }
 };
 
+module.exports.DuplicateData = async (data) => {
+    if (data && data != null && data.length != 0) {
+        throw new ThrowError(RESPONSE_MESSAGE.ALREADY_EXIST);
+    }
+}
+
 module.exports.IsError = async (result) => result.hasOwnProperty('error');
 
-module.exports.CapitalizeFirstLetter = async (txt) => txt.charAt(0).toUpperCase() + txt.slice(1);
+module.exports.CapitalizeFirstLetter = (txt) => txt.charAt(0).toUpperCase() + txt.slice(1);
 
 module.exports.EncodePassword = async (password) => bcrypt.hashSync(password, 10);
 
