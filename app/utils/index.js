@@ -1,4 +1,5 @@
 // Import the required modules
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const moment = require("moment/moment");
 const { RESPONSE_MESSAGE, RESPONSE_STATUS_CODE } = require("./constants");
@@ -12,15 +13,25 @@ module.exports.UserAgent = async (agent) => {
         isMobile: agent.isMobile,
         isBot: agent.isBot
     }
-}
+};
 
-module.exports.Response = (res, { message = RESPONSE_MESSAGE.SUCCESS, status = RESPONSE_STATUS_CODE.OK, data = null } = {}) => {
+module.exports.Response = (res, { 
+    message = RESPONSE_MESSAGE.SUCCESS,
+    status = RESPONSE_STATUS_CODE.OK, data = null } = {}
+    ) => {
     res.status(status).json({
         status: true,
         message: message,
         data: data,
     });
-}
+};
+
+module.exports.ThrowError = (res, { 
+    message = RESPONSE_MESSAGE.SERVER_ERROR,
+    status = RESPONSE_STATUS_CODE.INTERNAL_ERROR } = {}
+    ) => {
+    res.status(status).json({ message: message });
+};
 
 module.exports.TodayDate = async () => moment().format('YYYY-MM-DD');
 
@@ -30,7 +41,7 @@ module.exports.FormatData = (data) => {
     } else {
         throw new Error(RESPONSE_MESSAGE.DATA_NOT_FOUND);
     }
-}
+};
 
 module.exports.ValidateSignature = async (req) => {
     try {
@@ -41,4 +52,16 @@ module.exports.ValidateSignature = async (req) => {
     } catch (error) {
         return false;
     }
-}
+};
+
+module.exports.IsError = async (result) => result.hasOwnProperty('error');
+
+module.exports.CapitalizeFirstLetter = async (txt) => txt.charAt(0).toUpperCase() + txt.slice(1);
+
+module.exports.EncodePassword = async (password) => bcrypt.hashSync(password, 10);
+
+module.exports.ComparePassword = async (password, hashPassword) => bcrypt.compareSync(password, hashPassword);
+
+module.exports.MakeToken = async (payload) => jwt.sign(payload, process.env.ACCESS_TOKEN_SECERT, { expiresIn: 86400 }); // 24 hour
+
+module.exports.DecodeToken = async (token) => jwt.decode(token, process.env.ACCESS_TOKEN_SECERT);

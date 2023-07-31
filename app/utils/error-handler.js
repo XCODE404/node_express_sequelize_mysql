@@ -8,12 +8,13 @@ class AppError extends Error {
         this.statusCode = statusCode;
         this.isOperational = true;
         
-        Error.captureStackTrace(this, this.constructor);
+        // Error.captureStackTrace(this, this.constructor);
+        res.send(statusCode).json({ message: RESPONSE_MESSAGE.UN_AUTHORIZED });
     }
 }
 
 class ResponseError extends AppError {
-    constructor(name, statusCode = RESPONSE_STATUS_CODE.INTERNAL_ERROR, description = RESPONSE_MESSAGE.SERVER_ERROR, isOperational = true){
+    constructor({name, statusCode = RESPONSE_STATUS_CODE.INTERNAL_ERROR, description = RESPONSE_MESSAGE.SERVER_ERROR, isOperational = true}){
         super(name, statusCode, description, isOperational);
     }
 }

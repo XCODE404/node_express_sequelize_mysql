@@ -1,10 +1,21 @@
 // Import the required modules
 const EmployeeRepository = require("../repository/employee-repository");
+const { CapitalizeFirstLetter, EncodePassword, TodayDate } = require("../utils");
 
 // All Business logic will be here
 class EmployeeService {
-    static async createEmployee(employee) {
+    static async createEmployee(req) {
+        const data = req.body.data; //JSON.parse(atob(req.body.data));
 
+        const tmpEmployee = {
+            name: CapitalizeFirstLetter(data.name),
+            password: await EncodePassword(data.password),
+            date_of_joining: data.date_of_joining? data.date_of_joining : await TodayDate(),
+            ...data
+        };
+
+        const employee = await EmployeeRepository.createEmployee(tmpEmployee);
+        return FormatData(employee); 
     }
 
     static async getEmployee(req) {
@@ -12,16 +23,16 @@ class EmployeeService {
         return FormatData(employee);
     }
 
-    static async selectedEmployee(emplyee_id) {
+    static async selectedEmployee(req) {
 
     }
 
-    static async updateEmployee(emplyee_id) {
+    static async updateEmployee(req) {
 
     }
 
-    static async deleteEmployee(emplyee_id) {
-
+    static async deleteEmployee(req) {
+        
     }
 }
 
