@@ -52,7 +52,7 @@ module.exports = {
       created_agent: {
         type: Sequelize.JSON
       },
-      update_agent: {
+      updated_agent: {
         type: Sequelize.JSON
       },
       updated_date: {

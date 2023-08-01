@@ -57,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
-    create_agent: {
+    created_agent: {
       type: DataTypes.JSON
     },
     created_date: {
@@ -65,7 +65,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW
     },
-    update_agent: {
+    updated_agent: {
       type: DataTypes.JSON
     },
     updated_date: {

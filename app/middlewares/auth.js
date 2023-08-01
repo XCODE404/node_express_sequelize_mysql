@@ -10,8 +10,7 @@ class UserAuth {
     
             if (isAuthorized) {
                 return next();
-            }
-        
+            };
             throw new AuthorizeError(RESPONSE_MESSAGE.UN_AUTHORIZED);
         } catch (error) {
             next(error);

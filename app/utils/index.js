@@ -29,13 +29,13 @@ module.exports.Response = (res, {
 
 module.exports.TodayDate = async () => moment().format('YYYY-MM-DD');
 
-module.exports.FormatData = (data) => {
-    if (data) {
-        return { data };
-    } else {
-        throw new Error(RESPONSE_MESSAGE.DATA_NOT_FOUND);
-    }
-};
+// module.exports.FormatData = (data) => {
+//     if (data) {
+//         return { data };
+//     } else {
+//         throw new Error(RESPONSE_MESSAGE.DATA_NOT_FOUND);
+//     }
+// };
 
 module.exports.ValidateSignature = async (req) => {
     try {

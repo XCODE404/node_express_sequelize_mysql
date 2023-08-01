@@ -7,18 +7,6 @@ const { DEFINE } = require("../utils/constants");
 class EmployeeRepository extends Model {
 
     static async signIn(email) {
-        // return await Employee.findOne({
-        //     where: {
-        //         email,
-        //         del_flg: { [Op.eq]: false }
-        //     },
-        //     include: {
-        //         model: MstRole,
-        //         as: 'mstrole',
-        //         attributes: ['role_id', 'name']
-        //     }
-        // })
-
         return await Employee.findOne({
             where: {
                 email,
@@ -37,13 +25,13 @@ class EmployeeRepository extends Model {
     }
 
     static async getEmployee(req) {
-        const { page = DEFINE.PAGE, name  } = req.query;
+        const { page = DEFINE.PAGE, name, email  } = req.query;
 
         let condition = { del_flg: { [Op.eq]: false } };
-        if (name) {
+        if (name || email) {
             condition[Op.or] = [
-            { name_en: { [Op.like]: `%${ name }%` } },
-            { name_mm: { [Op.like]: `%${ name }%` } },
+            { name: { [Op.like]: `%${ name }%` } },
+            { email: { [Op.like]: `%${ email }%` } },
             ];
         };
 
