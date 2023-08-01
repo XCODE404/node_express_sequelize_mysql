@@ -23,6 +23,11 @@ exports.RESPONSE_MESSAGE = {
     ALREADY_EXIST: "Already Exist",
     VALIDATION_ERROR: "Validation Error",
     UN_AUTHORIZED: "Un Authorized",
+    INVALID_TOKEN: "Invalid Token",
+    INVALID_ADMIN: "Require Admin Role!",
+    INVALID_SUPERVISOR: "Require Supervisor Role!",
+    INVALID_ADMIN_SUPERVISOR: "Require Admin Or Supervisor Role!",
+    INVALID_STAFF: "Require Staff Role!",
     FORBIDDEN: "Forbidden",
     NOT_FOUND: "Not Found",
     BAD_REQUEST: "Bad Request",
@@ -33,4 +38,10 @@ exports.DEFINE = {
     PAGE : 1,
     OFFSET : 0,
     MATCHING_QUERY_LIMIT : 10,
+}
+
+exports.ROLE = {
+    ADMIN: "admin",
+    SUPERVISOR: "supervisor",
+    STAFF: "staff"
 }

@@ -41,7 +41,7 @@ module.exports.ValidateSignature = async (req) => {
     try {
         const signature = req.get("Authorization");
         const payload = await jwt.verify(signature.split(" ")[1], process.env.ACCESS_TOKEN_SECERT);
-        req.user = payload;
+        req.employee = payload;
         return true;
     } catch (error) {
         return false;
