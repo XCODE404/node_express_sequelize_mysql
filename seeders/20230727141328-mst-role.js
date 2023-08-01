@@ -1,6 +1,7 @@
 'use strict';
 
 const { v4: uuidv4 } = require('uuid');
+const { ROLE } = require('../app/utils/constants');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -17,19 +18,19 @@ module.exports = {
     await queryInterface.bulkInsert('MstRole', [
       {
         role_id: uuidv4(),
-        name: 'admin',
+        name: ROLE.ADMIN,
         created_date: new Date(),
         updated_date: new Date()
       },
       {
         role_id: uuidv4(),
-        name: 'super',
+        name: ROLE.SUPERVISOR,
         created_date: new Date(),
         updated_date: new Date()
       },
       {
         role_id: uuidv4(),
-        name: 'staff',
+        name: ROLE.STAFF,
         created_date: new Date(),
         updated_date: new Date()
       },
@@ -43,5 +44,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+    await queryInterface.bulkDelete('MstRole', null, {});
   }
 };

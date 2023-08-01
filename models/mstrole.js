@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      
+      // models.MstRole.hasMany(models.Employee, { foreignKey: 'role_id', as: 'employee' });
     }
   }
   MstRole.init({
@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: false,
       type: DataTypes.BOOLEAN
     },
-    create_agent: {
+    created_agent: {
       type: DataTypes.JSON
     },
     created_date: {
@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW
     },
-    update_agent: {
+    updated_agent: {
       type: DataTypes.JSON
     },
     updated_date: {

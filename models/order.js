@@ -64,7 +64,7 @@ module.exports = (sequelize, DataTypes) => {
     created_agent: {
       type: DataTypes.JSON
     },
-    update_agent: {
+    updated_agent: {
       type: DataTypes.JSON
     },
     updated_date: {

@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      
+      models.Employee.belongsTo(models.MstRole, { foreignKey: 'role_id', as: 'mst_role' });
     }
   }
   Employee.init({
@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4
     },
-    role: {
+    role_id: {
       allowNull: false,
       type: DataTypes.UUID,
       references: {
@@ -57,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
-    create_agent: {
+    created_agent: {
       type: DataTypes.JSON
     },
     created_date: {
@@ -65,7 +65,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW
     },
-    update_agent: {
+    updated_agent: {
       type: DataTypes.JSON
     },
     updated_date: {

@@ -45,7 +45,7 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         defaultValue: false
       },
-      create_agent: {
+      created_agent: {
         type: Sequelize.JSON
       },
       created_date: {
@@ -53,7 +53,7 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW
       },
-      update_agent: {
+      updated_agent: {
         type: Sequelize.JSON
       },
       updated_date: {

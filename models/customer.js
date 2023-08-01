@@ -72,7 +72,7 @@ module.exports = (sequelize, DataTypes) => {
         key: 'employee_id'
       }
     },
-    update_agent: {
+    updated_agent: {
       type: DataTypes.JSON
     },
     updated_date: {

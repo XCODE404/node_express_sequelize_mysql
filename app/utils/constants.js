@@ -1,7 +1,7 @@
-exports.STATUS_CODES = {
+exports.RESPONSE_STATUS_CODE = {
     OK: 200,
     BAD_REQUEST: 400,
-    UN_AUTHORISED: 403,
+    UN_AUTHORIZED: 403,
     NOT_FOUND: 404,
     INTERNAL_ERROR: 500,
     VALIDATE_ERROR: 422
@@ -22,15 +22,26 @@ exports.RESPONSE_MESSAGE = {
     USER_NOT_FOUND: "User Not Found",
     ALREADY_EXIST: "Already Exist",
     VALIDATION_ERROR: "Validation Error",
-    UNAUTHORIZED: "Unauthorized",
+    UN_AUTHORIZED: "Un Authorized",
+    INVALID_TOKEN: "Invalid Token",
+    INVALID_ADMIN: "Require Admin Role!",
+    INVALID_SUPERVISOR: "Require Supervisor Role!",
+    INVALID_ADMIN_SUPERVISOR: "Require Admin Or Supervisor Role!",
+    INVALID_STAFF: "Require Staff Role!",
     FORBIDDEN: "Forbidden",
     NOT_FOUND: "Not Found",
     BAD_REQUEST: "Bad Request",
-    SERVER_ERROR: "Internal Server Error",
+    INTERNAL_ERROR: "Internal Server Error",
 }
 
 exports.DEFINE = {
     PAGE : 1,
     OFFSET : 0,
     MATCHING_QUERY_LIMIT : 10,
+}
+
+exports.ROLE = {
+    ADMIN: "admin",
+    SUPERVISOR: "supervisor",
+    STAFF: "staff"
 }
