@@ -5,12 +5,14 @@ const UserAuth = require("../middlewares/auth");
 const EmployeeController = require("../controller/employee-controller");
 
 // Define the routes and associate them with the controller methods
+router.post('/sign-in', EmployeeController.signIn);
+
 router.route('/').
-post([ EmployeeController.createEmployee ]).
-get([ UserAuth, EmployeeController.getEmployee ]);
+post([ UserAuth.verifyToken, UserAuth.isAdmin, EmployeeController.createEmployee ]).
+get([ UserAuth.verifyToken, UserAuth.isAdminOrSupervisor, EmployeeController.getEmployee ]);
 
 router.route('/:employee_id').
-get([ EmployeeController.selectedEmployee ]).
+get([ UserAuth.isAdmin, EmployeeController.selectedEmployee ]).
 patch([ EmployeeController.updateEmployee ]).
 delete([ EmployeeController.deleteEmployee ]);
 

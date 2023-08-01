@@ -5,6 +5,33 @@ const { DEFINE } = require("../utils/constants");
 
 // Dealing with data base operations
 class EmployeeRepository extends Model {
+
+    static async signIn(email) {
+        // return await Employee.findOne({
+        //     where: {
+        //         email,
+        //         del_flg: { [Op.eq]: false }
+        //     },
+        //     include: {
+        //         model: MstRole,
+        //         as: 'mstrole',
+        //         attributes: ['role_id', 'name']
+        //     }
+        // })
+
+        return await Employee.findOne({
+            where: {
+                email,
+                del_flg: { [Op.eq]: false }
+            },
+            include: {
+                model: MstRole,
+                as: "mst_role",
+                attributes: ['role_id', 'name']
+            }
+        });
+    }
+
     static async createEmployee(employee) {
         return await Employee.create(employee);
     }
@@ -25,8 +52,8 @@ class EmployeeRepository extends Model {
             order: [["created_date", "ASC"]],
             include: {
                 model: MstRole,
-                as: 'mst_role',
-                attributes: ['rold_id', 'name']
+                as: "mst_role",
+                attributes: ['role_id', 'name']
             },
             limit: DEFINE.MATCHING_QUERY_LIMIT,
             offset: ( page - DEFINE.PAGE ) * DEFINE.MATCHING_QUERY_LIMIT
@@ -42,8 +69,8 @@ class EmployeeRepository extends Model {
             },
             include: {
                 model: MstRole,
-                as: 'role',
-                attributes: ['rold_id', 'name']
+                as: "mst_role",
+                attributes: ['role_id', 'name']
             }
         });
 

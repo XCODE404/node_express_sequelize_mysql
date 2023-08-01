@@ -5,6 +5,16 @@ const { RESPONSE_MESSAGE, RESPONSE_STATUS_CODE } = require("../utils/constants")
 
 // Define the EmployeeController class
 class EmployeeController {
+
+    static async signIn(req, res, next) {
+        try {
+            const result = await EmployeeService.signIn(req);
+            Response(res, { message: RESPONSE_MESSAGE.SIGN_IN, status: RESPONSE_STATUS_CODE.OK, data: result });
+        } catch (error) {
+            next(error);
+        }
+    }
+
     static async createEmployee(req, res, next) {
         try {
             const result = await EmployeeService.createEmployee(req);
