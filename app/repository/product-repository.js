@@ -6,22 +6,12 @@ const { DEFINE } = require("../utils/constants");
 // Dealing with data base operations
 class ProductRepository extends Model {
 
-    static async signIn(email) {
-        return await Product.findOne({
-            where: {
-                email,
-                del_flg: { [Op.eq]: false }
-            },
-            include: {
-                model: MstRole,
-                as: "mst_role",
-                attributes: ['role_id', 'name']
-            }
-        });
-    }
-
     static async createProduct(product) {
         return await Product.create(product);
+    }
+
+    static async getProductCount() {
+        return await Product.count();
     }
 
     static async getProduct(req) {
@@ -38,11 +28,11 @@ class ProductRepository extends Model {
         const { count, rows } = await Product.findAndCountAll({
             where: condition,
             order: [["created_date", "ASC"]],
-            include: {
-                model: MstRole,
-                as: "mst_role",
-                attributes: ['role_id', 'name']
-            },
+            // include: {
+            //     model: MstRole,
+            //     as: "mst_role",
+            //     attributes: ['role_id', 'name']
+            // },
             limit: DEFINE.MATCHING_QUERY_LIMIT,
             offset: ( page - DEFINE.PAGE ) * DEFINE.MATCHING_QUERY_LIMIT
         });
@@ -55,11 +45,11 @@ class ProductRepository extends Model {
                 product_id,
                 del_flg: { [Op.eq]: false }
             },
-            include: {
-                model: MstRole,
-                as: "mst_role",
-                attributes: ['role_id', 'name']
-            }
+            // include: {
+            //     model: MstRole,
+            //     as: "mst_role",
+            //     attributes: ['role_id', 'name']
+            // }
         });
 
         return { results: product };
@@ -81,10 +71,10 @@ class ProductRepository extends Model {
         );
     }
 
-    static async isExistProduct(email) {
+    static async isExistProduct(product_no) {
         return await Product.findOne({
             where: {
-                email,
+                product_no,
                 del_flg: { [Op.eq]: false }
             }
         });

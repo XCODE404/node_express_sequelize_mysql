@@ -48,8 +48,9 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: DataTypes.NOW
     },
     order_status: {
+      allowNull: false,
       type: DataTypes.ENUM('pending', 'completed', 'rejected'),
-      default: 'pending'
+      defaultValue: 'pending'
     },
     del_flg: {
       allowNull: false,
@@ -77,7 +78,17 @@ module.exports = (sequelize, DataTypes) => {
     freezeTableName: true,
     modelName: 'Order',
     createdAt: false,
-    updatedAt: false
+    updatedAt: false,
+    hooks: {
+      beforeCreate: async (order, options) => {
+        const prefix = 'ORD';
+        const date = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+        const count = await Order.count();
+        const uniqueIdentifier = String(count + 1).padStart(4, '0');
+
+        order.order_no = `${ prefix }-${ date }-${ uniqueIdentifier }`;
+      }
+    }
   });
   return Order;
 };

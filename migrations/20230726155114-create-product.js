@@ -18,12 +18,15 @@ module.exports = {
         }
       },
       sub_category_id: {
-        allowNull: false,
         type: Sequelize.UUID,
         references: {
           model: 'subcategory',
           key: 'sub_category_id'
         }
+      },
+      product_no: {
+        unique: true,
+        type: Sequelize.STRING
       },
       name: {
         allowNull: false,
@@ -33,14 +36,17 @@ module.exports = {
         type: Sequelize.STRING
       },
       price: {
+        allowNull: false,
         default: 0.00,
         type: Sequelize.DECIMAL
       },
       quantity: {
+        allowNull: false,
         default: 0.00,
         type: Sequelize.DECIMAL
       },
       status: {
+        allowNull: false,
         type: Sequelize.ENUM('active', 'inactive'),
         default: 'active'
       },

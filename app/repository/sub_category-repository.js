@@ -1,24 +1,10 @@
 // Import the required modules
 const { Model, Op } = require("sequelize");
-const { SubCategory, MstRole } = require("../../models");
+const { SubCategory, Category } = require("../../models");
 const { DEFINE } = require("../utils/constants");
 
 // Dealing with data base operations
 class SubCategoryRepository extends Model {
-
-    static async signIn(email) {
-        return await SubCategory.findOne({
-            where: {
-                email,
-                del_flg: { [Op.eq]: false }
-            },
-            include: {
-                model: MstRole,
-                as: "mst_role",
-                attributes: ['role_id', 'name']
-            }
-        });
-    }
 
     static async createSubCategory(sub_category) {
         return await SubCategory.create(sub_category);
@@ -30,8 +16,7 @@ class SubCategoryRepository extends Model {
         let condition = { del_flg: { [Op.eq]: false } };
         if (name) {
             condition[Op.or] = [
-            { name_en: { [Op.like]: `%${ name }%` } },
-            { name_mm: { [Op.like]: `%${ name }%` } },
+                { name: { [Op.eq]: name } }
             ];
         };
 
@@ -39,9 +24,9 @@ class SubCategoryRepository extends Model {
             where: condition,
             order: [["created_date", "ASC"]],
             include: {
-                model: MstRole,
-                as: "mst_role",
-                attributes: ['role_id', 'name']
+                model: Category,
+                as: "category",
+                attributes: ['category_id', 'name']
             },
             limit: DEFINE.MATCHING_QUERY_LIMIT,
             offset: ( page - DEFINE.PAGE ) * DEFINE.MATCHING_QUERY_LIMIT
@@ -56,9 +41,9 @@ class SubCategoryRepository extends Model {
                 del_flg: { [Op.eq]: false }
             },
             include: {
-                model: MstRole,
-                as: "mst_role",
-                attributes: ['role_id', 'name']
+                model: Category,
+                as: "category",
+                attributes: ['category_id', 'name']
             }
         });
 
@@ -81,10 +66,10 @@ class SubCategoryRepository extends Model {
         );
     }
 
-    static async isExistSubCategory(email) {
+    static async isExistSubCategory(name) {
         return await SubCategory.findOne({
             where: {
-                email,
+                name,
                 del_flg: { [Op.eq]: false }
             }
         });

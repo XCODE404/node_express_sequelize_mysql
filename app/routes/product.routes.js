@@ -5,17 +5,13 @@ const UserAuth = require("../middlewares/auth");
 const ProductController = require("../controller/product-controller");
 
 // Define the routes and associate them with the controller methods
-router.post('/sign-in', ProductController.signIn);
-
-router.post('/sign-up', ProductController.initSignUpProduct);
-
 router.route('/').
-post([ UserAuth.verifyToken, UserAuth.isAdmin, ProductController.createProduct ]).
-get([ UserAuth.verifyToken, UserAuth.isAdminOrSupervisor, ProductController.getProduct ]);
+post([ UserAuth.verifyToken, UserAuth.isAdminOrSupervisor, ProductController.createProduct ]).
+get([ UserAuth.verifyToken, ProductController.getProduct ]);
 
 router.route('/:product_id').
-get([ UserAuth.verifyToken, UserAuth.isAdmin, ProductController.selectedProduct ]).
-patch([ UserAuth.verifyToken, ProductController.updateProduct ]).
-delete([ UserAuth.verifyToken, ProductController.deleteProduct ]);
+get([ UserAuth.verifyToken, ProductController.selectedProduct ]).
+patch([ UserAuth.verifyToken, UserAuth.isAdminOrSupervisor, ProductController.updateProduct ]).
+delete([ UserAuth.verifyToken, UserAuth.isAdminOrSupervisor, ProductController.deleteProduct ]);
 
 module.exports = router;

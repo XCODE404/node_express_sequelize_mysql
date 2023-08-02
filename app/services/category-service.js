@@ -38,7 +38,7 @@ class CategoryService {
         const reqCategory = req.body.data; //JSON.parse(atob(req.body.data));
         
         const category = await CategoryRepository.selectedCategory(category_id);
-        if (category.results === null) throw new NotFoundError(RESPONSE_MESSAGE.USER_NOT_FOUND);
+        if (category.results === null) throw new NotFoundError(RESPONSE_MESSAGE.NOT_FOUND);
 
         return await CategoryRepository.updateCategory(category_id, reqCategory);
     }
@@ -47,7 +47,7 @@ class CategoryService {
         const { category_id } = req.params;
 
         const category = await CategoryRepository.selectedCategory(category_id);
-        if (category.results === null) throw new NotFoundError(RESPONSE_MESSAGE.USER_NOT_FOUND);
+        if (category.results === null) throw new NotFoundError(RESPONSE_MESSAGE.NOT_FOUND);
 
         return await CategoryRepository.deleteCategory(category_id);
     }

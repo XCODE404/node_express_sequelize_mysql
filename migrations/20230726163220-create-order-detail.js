@@ -26,14 +26,17 @@ module.exports = {
         }
       },
       quantity: {
+        allowNull: false,
         default: 0.00,
         type: Sequelize.DECIMAL
       },
       price: {
+        allowNull: false,
         default: 0.00,
         type: Sequelize.DECIMAL
       },
       discount: {
+        allowNull: false,
         default: 0.00,
         type: Sequelize.DECIMAL
       },

@@ -30,12 +30,14 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     sub_category_id: {
-      allowNull: false,
       type: DataTypes.UUID,
       references: {
         model: 'subcategory',
         key: 'sub_category_id'
       }
+    },
+    product_no: {
+      type: DataTypes.STRING
     },
     name: {
       allowNull: false,
@@ -45,16 +47,19 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     price: {
-      default: 0.00,
+      allowNull: false,
+      defaultValue: 0.00,
       type: DataTypes.DECIMAL
     },
     quantity: {
-      default: 0.00,
+      allowNull: false,
+      defaultValue: 0.00,
       type: DataTypes.DECIMAL
     },
     status: {
+      allowNull: false,
       type: DataTypes.ENUM('active', 'inactive'),
-      default: 'active'
+      defaultValue: 'active'
     },
     description: {
       type: DataTypes.STRING
@@ -96,12 +101,23 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW
     }
-  }, {
+  },
+  {
     sequelize,
     freezeTableName: true,
     modelName: 'Product',
     createdAt: false,
-    updatedAt: false
+    updatedAt: false,
+    hooks: {
+      beforeCreate: async (product, options) => {
+        const prefix = 'PROD';
+        const date = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+        const count = await Product.count();
+        const uniqueIdentifier = String(count + 1).padStart(4, '0');
+
+        product.product_no = `${ prefix }-${ date }-${ uniqueIdentifier }`;
+      }
+    }
   });
   return Product;
 };

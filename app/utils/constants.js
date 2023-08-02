@@ -19,7 +19,6 @@ exports.RESPONSE_MESSAGE = {
     SIGN_UP: "Successfully Sign Un",
     INVALID_PASSWORD: "Invalid Password",
     FORGET_PASSWORD: "Forget Password",
-    USER_NOT_FOUND: "User Not Found",
     ALREADY_EXIST: "Already Exist",
     VALIDATION_ERROR: "Validation Error",
     UN_AUTHORIZED: "Un Authorized",

@@ -41,7 +41,7 @@ class CustomerService {
         const reqCustomer = req.body.data; //JSON.parse(atob(req.body.data));
         
         const customer = await CustomerRepository.selectedCustomer(customer_id);
-        if (customer.results === null) throw new NotFoundError(RESPONSE_MESSAGE.USER_NOT_FOUND);
+        if (customer.results === null) throw new NotFoundError(RESPONSE_MESSAGE.NOT_FOUND);
 
         return await CustomerRepository.updateCustomer(customer_id, reqCustomer);
     }
@@ -50,7 +50,7 @@ class CustomerService {
         const { customer_id } = req.params;
 
         const customer = await CustomerRepository.selectedCustomer(customer_id);
-        if (customer.results === null) throw new NotFoundError(RESPONSE_MESSAGE.USER_NOT_FOUND);
+        if (customer.results === null) throw new NotFoundError(RESPONSE_MESSAGE.NOT_FOUND);
 
         return await CustomerRepository.deleteCustomer(customer_id);
     }

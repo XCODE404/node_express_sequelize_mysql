@@ -13,7 +13,7 @@ class EmployeeService {
 
         // check exist employee
         const employee = await EmployeeRepository.signIn(email);
-        if (!employee) throw new NotFoundError(RESPONSE_MESSAGE.USER_NOT_FOUND);
+        if (!employee) throw new NotFoundError(RESPONSE_MESSAGE.NOT_FOUND);
 
         // check password
         const password_check = await ComparePassword(password, employee.password);
@@ -76,7 +76,7 @@ class EmployeeService {
         const reqEmployee = req.body.data; //JSON.parse(atob(req.body.data));
         
         const employee = await EmployeeRepository.selectedEmployee(employee_id);
-        if (employee.results === null) throw new NotFoundError(RESPONSE_MESSAGE.USER_NOT_FOUND);
+        if (employee.results === null) throw new NotFoundError(RESPONSE_MESSAGE.NOT_FOUND);
 
         return await EmployeeRepository.updateEmployee(employee_id, reqEmployee);
     }
@@ -85,7 +85,7 @@ class EmployeeService {
         const { employee_id } = req.params;
 
         const employee = await EmployeeRepository.selectedEmployee(employee_id);
-        if (employee.results === null) throw new NotFoundError(RESPONSE_MESSAGE.USER_NOT_FOUND);
+        if (employee.results === null) throw new NotFoundError(RESPONSE_MESSAGE.NOT_FOUND);
 
         return await EmployeeRepository.deleteEmployee(employee_id);
     }

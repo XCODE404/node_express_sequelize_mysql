@@ -13,7 +13,7 @@ class OrderDetailService {
 
         // check exist order_detail
         const order_detail = await OrderDetailRepository.signIn(email);
-        if (!order_detail) throw new NotFoundError(RESPONSE_MESSAGE.USER_NOT_FOUND);
+        if (!order_detail) throw new NotFoundError(RESPONSE_MESSAGE.NOT_FOUND);
 
         // check password
         const password_check = await ComparePassword(password, order_detail.password);
@@ -76,7 +76,7 @@ class OrderDetailService {
         const reqOrderDetail = req.body.data; //JSON.parse(atob(req.body.data));
         
         const order_detail = await OrderDetailRepository.selectedOrderDetail(order_detail_id);
-        if (order_detail.results === null) throw new NotFoundError(RESPONSE_MESSAGE.USER_NOT_FOUND);
+        if (order_detail.results === null) throw new NotFoundError(RESPONSE_MESSAGE.NOT_FOUND);
 
         return await OrderDetailRepository.updateOrderDetail(order_detail_id, reqOrderDetail);
     }
@@ -85,7 +85,7 @@ class OrderDetailService {
         const { order_detail_id } = req.params;
 
         const order_detail = await OrderDetailRepository.selectedOrderDetail(order_detail_id);
-        if (order_detail.results === null) throw new NotFoundError(RESPONSE_MESSAGE.USER_NOT_FOUND);
+        if (order_detail.results === null) throw new NotFoundError(RESPONSE_MESSAGE.NOT_FOUND);
 
         return await OrderDetailRepository.deleteOrderDetail(order_detail_id);
     }

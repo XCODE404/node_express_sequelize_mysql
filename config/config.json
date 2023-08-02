@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "password@2022",
+    "password": "root",
     "database": "node_express_sequelize_mysql",
     "host": "127.0.0.1",
     "dialect": "mysql",

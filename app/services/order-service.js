@@ -13,7 +13,7 @@ class OrderService {
 
         // check exist order
         const order = await OrderRepository.signIn(email);
-        if (!order) throw new NotFoundError(RESPONSE_MESSAGE.USER_NOT_FOUND);
+        if (!order) throw new NotFoundError(RESPONSE_MESSAGE.NOT_FOUND);
 
         // check password
         const password_check = await ComparePassword(password, order.password);
@@ -76,7 +76,7 @@ class OrderService {
         const reqOrder = req.body.data; //JSON.parse(atob(req.body.data));
         
         const order = await OrderRepository.selectedOrder(order_id);
-        if (order.results === null) throw new NotFoundError(RESPONSE_MESSAGE.USER_NOT_FOUND);
+        if (order.results === null) throw new NotFoundError(RESPONSE_MESSAGE.NOT_FOUND);
 
         return await OrderRepository.updateOrder(order_id, reqOrder);
     }
@@ -85,7 +85,7 @@ class OrderService {
         const { order_id } = req.params;
 
         const order = await OrderRepository.selectedOrder(order_id);
-        if (order.results === null) throw new NotFoundError(RESPONSE_MESSAGE.USER_NOT_FOUND);
+        if (order.results === null) throw new NotFoundError(RESPONSE_MESSAGE.NOT_FOUND);
 
         return await OrderRepository.deleteOrder(order_id);
     }
