@@ -1,6 +1,6 @@
 // Import the required modules
 const { Model, Op } = require("sequelize");
-const { Category, MstRole } = require("../../models");
+const { Category } = require("../../models");
 const { DEFINE } = require("../utils/constants");
 
 // Dealing with data base operations
@@ -12,11 +12,6 @@ class CategoryRepository extends Model {
                 email,
                 del_flg: { [Op.eq]: false }
             },
-            // include: {
-            //     model: MstRole,
-            //     as: "mst_role",
-            //     attributes: ['role_id', 'name']
-            // }
         });
     }
 
@@ -30,19 +25,13 @@ class CategoryRepository extends Model {
         let condition = { del_flg: { [Op.eq]: false } };
         if (name) {
             condition[Op.or] = [
-            { name_en: { [Op.like]: `%${ name }%` } },
-            { name_mm: { [Op.like]: `%${ name }%` } },
+            { name: { [Op.like]: `%${ name }%` } }
             ];
         };
 
         const { count, rows } = await Category.findAndCountAll({
             where: condition,
             order: [["created_date", "ASC"]],
-            // include: {
-            //     model: MstRole,
-            //     as: "mst_role",
-            //     attributes: ['role_id', 'name']
-            // },
             limit: DEFINE.MATCHING_QUERY_LIMIT,
             offset: ( page - DEFINE.PAGE ) * DEFINE.MATCHING_QUERY_LIMIT
         });
@@ -55,11 +44,6 @@ class CategoryRepository extends Model {
                 category_id,
                 del_flg: { [Op.eq]: false }
             },
-            // include: {
-            //     model: MstRole,
-            //     as: "mst_role",
-            //     attributes: ['role_id', 'name']
-            // }
         });
 
         return { results: category };

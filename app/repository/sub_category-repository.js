@@ -1,7 +1,7 @@
 // Import the required modules
 const { Model, Op } = require("sequelize");
-const { SubCategory, Category } = require("../../models");
 const { DEFINE } = require("../utils/constants");
+const { SubCategory, Category } = require("../../models");
 
 // Dealing with data base operations
 class SubCategoryRepository extends Model {
@@ -26,7 +26,7 @@ class SubCategoryRepository extends Model {
             include: {
                 model: Category,
                 as: "category",
-                attributes: ['category_id', 'name']
+                attributes: ['name']
             },
             limit: DEFINE.MATCHING_QUERY_LIMIT,
             offset: ( page - DEFINE.PAGE ) * DEFINE.MATCHING_QUERY_LIMIT
@@ -43,7 +43,7 @@ class SubCategoryRepository extends Model {
             include: {
                 model: Category,
                 as: "category",
-                attributes: ['category_id', 'name']
+                attributes: ['name']
             }
         });
 

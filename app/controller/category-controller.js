@@ -1,6 +1,6 @@
 // Import the required modules
-const CategoryService = require("../services/category-service");
 const { Response } = require("../utils");
+const CategoryService = require("../services/category-service");
 const { RESPONSE_MESSAGE, RESPONSE_STATUS_CODE } = require("../utils/constants");
 
 // Define the CategoryController class

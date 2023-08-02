@@ -2,19 +2,17 @@
 const router = require('express').Router();
 const UserAuth = require("../middlewares/auth");
 
+const { ValidateInput } = require('../validation');
+const { OrderDetail } = require('../validation/order_detail-validate');
 const OrderDetailController = require("../controller/order_detail-controller");
 
 // Define the routes and associate them with the controller methods
-router.post('/sign-in', OrderDetailController.signIn);
-
-router.post('/sign-up', OrderDetailController.initSignUpOrderDetail);
-
 router.route('/').
-post([ UserAuth.verifyToken, UserAuth.isAdmin, OrderDetailController.createOrderDetail ]).
-get([ UserAuth.verifyToken, UserAuth.isAdminOrSupervisor, OrderDetailController.getOrderDetail ]);
+post([ UserAuth.verifyToken, ValidateInput(OrderDetail), OrderDetailController.createOrderDetail ]).
+get([ UserAuth.verifyToken, OrderDetailController.getOrderDetail ]);
 
 router.route('/:order_detail_id').
-get([ UserAuth.verifyToken, UserAuth.isAdmin, OrderDetailController.selectedOrderDetail ]).
+get([ UserAuth.verifyToken, OrderDetailController.selectedOrderDetail ]).
 patch([ UserAuth.verifyToken, OrderDetailController.updateOrderDetail ]).
 delete([ UserAuth.verifyToken, OrderDetailController.deleteOrderDetail ]);
 

@@ -1,6 +1,6 @@
 // Import the required modules
-const OrderDetailService = require("../services/order_detail-service");
 const { Response } = require("../utils");
+const OrderDetailService = require("../services/order_detail-service");
 const { RESPONSE_MESSAGE, RESPONSE_STATUS_CODE } = require("../utils/constants");
 
 // Define the OrderDetailController class

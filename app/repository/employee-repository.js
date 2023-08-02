@@ -1,7 +1,7 @@
 // Import the required modules
 const { Model, Op } = require("sequelize");
-const { Employee, MstRole } = require("../../models");
 const { DEFINE } = require("../utils/constants");
+const { Employee, MstRole } = require("../../models");
 
 // Dealing with data base operations
 class EmployeeRepository extends Model {

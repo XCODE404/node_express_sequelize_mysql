@@ -1,9 +1,9 @@
 // Import the required modules
-const { CapitalizeFirstLetter, EncodePassword, TodayDate, DuplicateData, UserAgent, ComparePassword, MakeToken } = require("../utils");
-const { RESPONSE_MESSAGE } = require("../utils/constants");
-const { NotFoundError, ValidationError } = require("../utils/errors/app-errors");
-const OrderDetailRepository = require("../repository/order_detail-repository");
 const MstRoleService = require("./mst_role-service");
+const { RESPONSE_MESSAGE } = require("../utils/constants");
+const OrderDetailRepository = require("../repository/order_detail-repository");
+const { NotFoundError, ValidationError } = require("../utils/errors/app-errors");
+const { CapitalizeFirstLetter, EncodePassword, TodayDate, DuplicateData, UserAgent, ComparePassword, MakeToken } = require("../utils");
 
 // All Business logic will be here
 class OrderDetailService {
