@@ -18,7 +18,7 @@ module.exports = {
         }
       },
       order_no: {
-        allowNull: false,
+        unique: true,
         type: Sequelize.STRING
       },
       name: {
@@ -36,6 +36,7 @@ module.exports = {
         defaultValue: Sequelize.NOW
       },
       order_status: {
+        allowNull: false,
         type: Sequelize.ENUM('pending', 'completed', 'rejected'),
         default: 'pending'
       },

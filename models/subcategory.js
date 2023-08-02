@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      
+      models.SubCategory.belongsTo(models.Category, { foreignKey: 'category_id', as: 'category' });
     }
   }
   SubCategory.init({
@@ -40,8 +40,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     status: {
+      allowNull: false,
       type: DataTypes.ENUM('active', 'inactive'),
-      default: 'active'
+      defaultValue: 'active'
     },
     del_flg: {
       allowNull: false,
@@ -56,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
     created_agent: {
       type: DataTypes.JSON
     },
-    update_agent: {
+    updated_agent: {
       type: DataTypes.JSON
     },
     updated_date: {

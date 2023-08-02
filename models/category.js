@@ -32,8 +32,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     status: {
+      allowNull: false,
       type: DataTypes.ENUM('active', 'inactive'),
-      default: 'active'
+      defaultValue: 'active'
     },
     del_flg: {
       allowNull: false,

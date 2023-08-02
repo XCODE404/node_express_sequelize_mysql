@@ -38,15 +38,15 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     quantity: {
-      default: 0.00,
+      defaultValue: 0.00,
       type: DataTypes.DECIMAL
     },
     price: {
-      default: 0.00,
+      defaultValue: 0.00,
       type: DataTypes.DECIMAL
     },
     discount: {
-      default: 0.00,
+      defaultValue: 0.00,
       type: DataTypes.DECIMAL
     },
     del_flg: {
