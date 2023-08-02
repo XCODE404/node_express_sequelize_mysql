@@ -2,11 +2,13 @@
 const router = require('express').Router();
 const UserAuth = require("../middlewares/auth");
 
+const { ValidateInput } = require('../validation');
+const { Product } = require('../validation/order-validate');
 const ProductController = require("../controller/product-controller");
 
 // Define the routes and associate them with the controller methods
 router.route('/').
-post([ UserAuth.verifyToken, UserAuth.isAdminOrSupervisor, ProductController.createProduct ]).
+post([ UserAuth.verifyToken, ValidateInput(Product), UserAuth.isAdminOrSupervisor, ProductController.createProduct ]).
 get([ UserAuth.verifyToken, ProductController.getProduct ]);
 
 router.route('/:product_id').

@@ -1,6 +1,6 @@
 // Import the required modules
-const CustomerService = require("../services/customer-service");
 const { Response } = require("../utils");
+const CustomerService = require("../services/customer-service");
 const { RESPONSE_MESSAGE, RESPONSE_STATUS_CODE } = require("../utils/constants");
 
 // Define the CustomerController class

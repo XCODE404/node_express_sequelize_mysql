@@ -1,9 +1,8 @@
 // Import the required modules
-const { CapitalizeFirstLetter, EncodePassword, TodayDate, DuplicateData, UserAgent, ComparePassword, MakeToken } = require("../utils");
+const { DuplicateData, UserAgent } = require("../utils");
 const { RESPONSE_MESSAGE } = require("../utils/constants");
-const { NotFoundError, ValidationError } = require("../utils/errors/app-errors");
+const { NotFoundError } = require("../utils/errors/app-errors");
 const SubCategoryRepository = require("../repository/sub_category-repository");
-const MstRoleService = require("./mst_role-service");
 
 // All Business logic will be here
 class SubCategoryService {

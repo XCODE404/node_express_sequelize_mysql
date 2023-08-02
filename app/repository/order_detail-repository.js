@@ -1,24 +1,10 @@
 // Import the required modules
 const { Model, Op } = require("sequelize");
-const { OrderDetail, MstRole } = require("../../models");
+const { OrderDetail } = require("../../models");
 const { DEFINE } = require("../utils/constants");
 
 // Dealing with data base operations
 class OrderDetailRepository extends Model {
-
-    static async signIn(email) {
-        return await OrderDetail.findOne({
-            where: {
-                email,
-                del_flg: { [Op.eq]: false }
-            },
-            include: {
-                model: MstRole,
-                as: "mst_role",
-                attributes: ['role_id', 'name']
-            }
-        });
-    }
 
     static async createOrderDetail(order_detail) {
         return await OrderDetail.create(order_detail);
@@ -38,11 +24,6 @@ class OrderDetailRepository extends Model {
         const { count, rows } = await OrderDetail.findAndCountAll({
             where: condition,
             order: [["created_date", "ASC"]],
-            include: {
-                model: MstRole,
-                as: "mst_role",
-                attributes: ['role_id', 'name']
-            },
             limit: DEFINE.MATCHING_QUERY_LIMIT,
             offset: ( page - DEFINE.PAGE ) * DEFINE.MATCHING_QUERY_LIMIT
         });
@@ -55,11 +36,6 @@ class OrderDetailRepository extends Model {
                 order_detail_id,
                 del_flg: { [Op.eq]: false }
             },
-            include: {
-                model: MstRole,
-                as: "mst_role",
-                attributes: ['role_id', 'name']
-            }
         });
 
         return { results: order_detail };
@@ -74,20 +50,25 @@ class OrderDetailRepository extends Model {
         });
     }
 
+    static async getOrderDetailByOrder(order_id) {
+        return await OrderDetail.update(
+            { del_flg: true },
+            { where: { order_id: order_id } }
+        );
+    }
+
+    static async deleteOrderDetailByOrder(order_id) {
+        return await OrderDetail.update(
+            { del_flg: true },
+            { where: { order_id: order_id } }
+        );
+    }
+
     static async deleteOrderDetail(order_detail_id) {
         return await OrderDetail.update(
             { del_flg: true },
             { where: { order_detail_id } }
         );
-    }
-
-    static async isExistOrderDetail(email) {
-        return await OrderDetail.findOne({
-            where: {
-                email,
-                del_flg: { [Op.eq]: false }
-            }
-        });
     }
 }
 

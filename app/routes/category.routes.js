@@ -2,11 +2,13 @@
 const router = require('express').Router();
 const UserAuth = require("../middlewares/auth");
 
+const validateInput = require('../validation');
+const { Category } = require('../validation/category-validate');
 const CategoryController = require("../controller/category-controller");
 
 // Define the routes and associate them with the controller methods
 router.route('/').
-post([ UserAuth.verifyToken, UserAuth.isAdminOrSupervisor, CategoryController.createCategory ]).
+post([ UserAuth.verifyToken, validateInput.ValidateInput(Category), UserAuth.isAdminOrSupervisor, CategoryController.createCategory ]).
 get([ UserAuth.verifyToken, CategoryController.getCategory ]);
 
 router.route('/:category_id').

@@ -1,9 +1,8 @@
 // Import the required modules
-const { CapitalizeFirstLetter, EncodePassword, TodayDate, DuplicateData, UserAgent, ComparePassword, MakeToken } = require("../utils");
 const { RESPONSE_MESSAGE } = require("../utils/constants");
-const { NotFoundError, ValidationError } = require("../utils/errors/app-errors");
+const { NotFoundError } = require("../utils/errors/app-errors");
 const CustomerRepository = require("../repository/customer-repository");
-const MstRoleService = require("./mst_role-service");
+const { CapitalizeFirstLetter, EncodePassword, TodayDate, DuplicateData, UserAgent } = require("../utils");
 
 // All Business logic will be here
 class CustomerService {

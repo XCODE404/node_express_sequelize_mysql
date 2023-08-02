@@ -1,6 +1,6 @@
 // Import the required modules
-const EmployeeService = require("../services/employee-service");
 const { Response } = require("../utils");
+const EmployeeService = require("../services/employee-service");
 const { RESPONSE_MESSAGE, RESPONSE_STATUS_CODE } = require("../utils/constants");
 
 // Define the EmployeeController class

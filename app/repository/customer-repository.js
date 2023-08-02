@@ -1,6 +1,6 @@
 // Import the required modules
 const { Model, Op } = require("sequelize");
-const { Customer, MstRole } = require("../../models");
+const { Customer } = require("../../models");
 const { DEFINE } = require("../utils/constants");
 
 // Dealing with data base operations

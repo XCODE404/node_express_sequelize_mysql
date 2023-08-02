@@ -1,28 +1,10 @@
 // Import the required modules
-const OrderService = require("../services/order-service");
 const { Response } = require("../utils");
+const OrderService = require("../services/order-service");
 const { RESPONSE_MESSAGE, RESPONSE_STATUS_CODE } = require("../utils/constants");
 
 // Define the OrderController class
 class OrderController {
-
-    static async signIn(req, res, next) {
-        try {
-            const result = await OrderService.signIn(req);
-            Response(res, { message: RESPONSE_MESSAGE.SIGN_IN, status: RESPONSE_STATUS_CODE.OK, data: result });
-        } catch (error) {
-            next(error);
-        }
-    };
-
-    static async initSignUpOrder(req, res, next) {
-        try {
-            const result = await OrderService.initSignUpOrder(req);
-            Response(res, { message: RESPONSE_MESSAGE.CREATED, status: RESPONSE_STATUS_CODE.CREATED, data: result });
-        } catch (error) {
-            next(error);
-        }
-    };
 
     static async createOrder(req, res, next) {
         try {

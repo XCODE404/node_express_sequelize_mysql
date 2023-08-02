@@ -1,52 +1,47 @@
 // Import the required modules
 const { Model, Op } = require("sequelize");
-const { Order, MstRole } = require("../../models");
 const { DEFINE } = require("../utils/constants");
+const { Order, Customer, OrderDetail, Product } = require("../../models");
 
 // Dealing with data base operations
 class OrderRepository extends Model {
-
-    static async signIn(email) {
-        return await Order.findOne({
-            where: {
-                email,
-                del_flg: { [Op.eq]: false }
-            },
-            include: {
-                model: MstRole,
-                as: "mst_role",
-                attributes: ['role_id', 'name']
-            }
-        });
-    }
 
     static async createOrder(order) {
         return await Order.create(order);
     }
 
     static async getOrder(req) {
-        const { page = DEFINE.PAGE, name  } = req.query;
+        const { page = DEFINE.PAGE, name, order_no  } = req.query;
 
         let condition = { del_flg: { [Op.eq]: false } };
-        if (name) {
+        if (name || order_no) {
             condition[Op.or] = [
-            { name_en: { [Op.like]: `%${ name }%` } },
-            { name_mm: { [Op.like]: `%${ name }%` } },
+                { name: { [Op.like]: `%${ name }%` } },
+                { order_no: { [Op.like]: `%${ order_no }%` } }
             ];
         };
 
         const { count, rows } = await Order.findAndCountAll({
             where: condition,
             order: [["created_date", "ASC"]],
-            include: {
-                model: MstRole,
-                as: "mst_role",
-                attributes: ['role_id', 'name']
-            },
+            include: [{
+                model: OrderDetail,
+                as: "order_detail",
+                attributes: ['item'],
+                include: [{
+                    model: Product,
+                    as: "product",
+                    attributes: ['name']
+                }]
+            }, {
+                model: Customer,
+                as: "customer",
+                attributes: ['name', 'phone']
+            }],
             limit: DEFINE.MATCHING_QUERY_LIMIT,
             offset: ( page - DEFINE.PAGE ) * DEFINE.MATCHING_QUERY_LIMIT
         });
-        return { counts: count, results: rows };
+        return { counts: rows.length, results: rows };
     }
 
     static async selectedOrder(order_id) {
@@ -55,11 +50,20 @@ class OrderRepository extends Model {
                 order_id,
                 del_flg: { [Op.eq]: false }
             },
-            include: {
-                model: MstRole,
-                as: "mst_role",
-                attributes: ['role_id', 'name']
-            }
+            include: [{
+                model: OrderDetail,
+                as: "order_detail",
+                attributes: ['item'],
+                include: [{
+                    model: Product,
+                    as: "product",
+                    attributes: ['name']
+                }]
+            }, {
+                model: Customer,
+                as: "customer",
+                attributes: ['name', 'phone']
+            }]
         });
 
         return { results: order };
@@ -79,15 +83,6 @@ class OrderRepository extends Model {
             { del_flg: true },
             { where: { order_id } }
         );
-    }
-
-    static async isExistOrder(email) {
-        return await Order.findOne({
-            where: {
-                email,
-                del_flg: { [Op.eq]: false }
-            }
-        });
     }
 }
 

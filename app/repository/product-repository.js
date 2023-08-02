@@ -1,7 +1,7 @@
 // Import the required modules
 const { Model, Op } = require("sequelize");
-const { Product, MstRole } = require("../../models");
 const { DEFINE } = require("../utils/constants");
+const { Product, Category, SubCategory } = require("../../models");
 
 // Dealing with data base operations
 class ProductRepository extends Model {
@@ -15,24 +15,28 @@ class ProductRepository extends Model {
     }
 
     static async getProduct(req) {
-        const { page = DEFINE.PAGE, name  } = req.query;
+        const { page = DEFINE.PAGE, name, product_no  } = req.query;
 
         let condition = { del_flg: { [Op.eq]: false } };
-        if (name) {
+        if (name || product_no) {
             condition[Op.or] = [
-            { name_en: { [Op.like]: `%${ name }%` } },
-            { name_mm: { [Op.like]: `%${ name }%` } },
+            { name: { [Op.like]: `%${ name }%` } },
+            { product_no: { [Op.like]: `%${ product_no }%` } }
             ];
         };
 
         const { count, rows } = await Product.findAndCountAll({
             where: condition,
             order: [["created_date", "ASC"]],
-            // include: {
-            //     model: MstRole,
-            //     as: "mst_role",
-            //     attributes: ['role_id', 'name']
-            // },
+            include: [{
+                model: Category,
+                as: "category",
+                attributes: ['name']
+            }, {
+                model: SubCategory,
+                as: "subcategory",
+                attributes: ['name']
+            }],
             limit: DEFINE.MATCHING_QUERY_LIMIT,
             offset: ( page - DEFINE.PAGE ) * DEFINE.MATCHING_QUERY_LIMIT
         });
@@ -45,11 +49,15 @@ class ProductRepository extends Model {
                 product_id,
                 del_flg: { [Op.eq]: false }
             },
-            // include: {
-            //     model: MstRole,
-            //     as: "mst_role",
-            //     attributes: ['role_id', 'name']
-            // }
+            include: [{
+                model: Category,
+                as: "category",
+                attributes: ['name']
+            }, {
+                model: SubCategory,
+                as: "subcategory",
+                attributes: ['name']
+            }]
         });
 
         return { results: product };

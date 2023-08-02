@@ -1,6 +1,6 @@
 // Import the required modules
-const ProductService = require("../services/product-service");
 const { Response } = require("../utils");
+const ProductService = require("../services/product-service");
 const { RESPONSE_MESSAGE, RESPONSE_STATUS_CODE } = require("../utils/constants");
 
 // Define the ProductController class

@@ -11,7 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      
+      models.Order.belongsTo(models.Customer, { foreignKey: 'customer_id', as: 'customer' });
+      models.Order.hasMany(models.OrderDetail, { foreignKey: 'order_id', as: 'order_detail' });
     }
   }
   Order.init({
@@ -30,7 +31,6 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     order_no: {
-      allowNull: false,
       type: DataTypes.STRING
     },
     name: {
@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: DataTypes.NOW
     },
     order_complete_date: {
-      allowNull: false,
+      allowNull: true,
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW
     },

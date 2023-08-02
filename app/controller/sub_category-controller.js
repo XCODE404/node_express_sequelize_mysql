@@ -1,6 +1,6 @@
 // Import the required modules
-const SubCategoryService = require("../services/sub_category-service");
 const { Response } = require("../utils");
+const SubCategoryService = require("../services/sub_category-service");
 const { RESPONSE_MESSAGE, RESPONSE_STATUS_CODE } = require("../utils/constants");
 
 // Define the SubCategoryController class
